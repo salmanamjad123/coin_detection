@@ -5,7 +5,7 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden" id="home-section">
+    <section className="relative w-full overflow-hidden px-5" id="home-section">
       <div className="absolute inset-0 z-0 flex justify-center">
         <div
           className="w-[700px] h-[700px] rounded-full mt-10
@@ -14,7 +14,7 @@ const Hero = () => {
         ></div>
       </div>
 
-      <div className="relative z-10 pb-20 mx-auto lg:max-w-screen-xl md:max-w-screen-md pt-48 px-4 text-center ">
+      <div className="relative z-10 pb-20 mx-auto w-full max-w-[1110px] pt-48  text-center ">
         <Text
           as="h1"
           className="bg-gradient-to-r from-[#ffffff] to-[#999999] text-transparent bg-clip-text"
@@ -31,7 +31,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="mt-10 px-8">
+        <div className="mt-10 ">
           <Text>
             Effortlessly create precise DXF files for manufacturing custom tool
             drawer inserts with AI-powered automation. Ability to modify DXF
@@ -41,7 +41,7 @@ const Hero = () => {
           </Text>
         </div>
       </div>
-      <div className="flex items-center gap-4 mt-12 justify-center xl:flex-row flex-col z-10 md:px-0 px-10">
+      <div className="flex items-center gap-4 mt-12 justify-center flex-row tab:flex-col z-10 md:px-0 ">
         <Image
           src="/images/hero/dxf1.svg"
           height={300}
@@ -54,7 +54,7 @@ const Hero = () => {
           height={300}
           width={200}
           alt="img2"
-          className="rounded-xl shadow-md w-full xl:max-w-[527.7px] max-w-[462.48px] h-auto"
+          className="rounded-xl shadow-md w-full max-w-[527.7px] tab:max-w-[462.48px] h-auto"
         />
         <Image
           src="/images/hero/dxf3.svg"
