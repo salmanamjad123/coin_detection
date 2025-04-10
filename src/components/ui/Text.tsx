@@ -29,7 +29,7 @@ const Text = forwardRef<HTMLHeadingElement | HTMLParagraphElement, Props>(
         <p
           ref={ref}
           className={cn(
-            'font-raleway text-primary text-[23px] font-normal leading-[33.2px]',
+            'font-raleway text-primary text-[20px] font-normal leading-[33.2px]',
             className,
           )}
           onClick={onclick}
@@ -74,7 +74,7 @@ const Text = forwardRef<HTMLHeadingElement | HTMLParagraphElement, Props>(
       <p
         ref={ref}
         className={cn(
-          'font-raleway text-primary text-[22px] font-normal leading-[33.2px]',
+          'font-raleway text-primary text-[20px] font-normal leading-[33.2px]',
           className,
         )}
         onClick={onclick}

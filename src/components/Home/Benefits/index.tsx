@@ -13,7 +13,7 @@ const Benefits = () => {
                   from-[#A8E543]/30 via-[#AAFFAA]/15 to-transparent blur-2xl"
         ></div>
       </div>
-      <div className="z-10 mx-auto lg:max-w-screen-xl md:max-w-screen-md pt-20 pb-20 px-4">
+      <div className="z-10 mx-auto w-full max-w-[1131px] pt-20 pb-20 px-4">
         <div className="flex justify-between md:flex-row flex-col">
           <div className="max-w-3xl">
             <Text as="h1">Why Choose Foam Layout Tool?</Text>
