@@ -2,6 +2,7 @@ import Benefits from '@/components/Home/Benefits'
 import ExampleofTool from '@/components/Home/ExampleofTool'
 import Hero from '@/components/Home/Hero'
 import NewIdeas from '@/components/Home/NewIdeas'
+import Steps from '@/components/Home/Steps'
 import ToolWorks from '@/components/Home/ToolWorks'
 import WhatWeOffer from '@/components/Home/WhatWeOffer'
 import Button from '@/components/ui/Button'
@@ -15,6 +16,7 @@ export default function Home() {
         <Hero />
         <Benefits />
         <ToolWorks />
+        <Steps/>
         <ExampleofTool />
         <WhatWeOffer/>
         <NewIdeas/>
