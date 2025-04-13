@@ -16,7 +16,7 @@ const ExampleofTool = () => {
               
                 <div className="relative  mx-auto w-full max-w-[1131px] pt-16 pb-20 z-10">
                     <Image className='mt-16' src={tool1} alt="poster" width={1130} height={566} />
-                    <div className="flex mt-8 gap-8">
+                    <div className="flex flex-wrap mob:justify-center mt-8 gap-8">
                         <Image className='' src={tool2} alt="poster" width={549} height={549} />
                         <Image className='' src={tool3} alt="poster" width={549} height={549} />
 

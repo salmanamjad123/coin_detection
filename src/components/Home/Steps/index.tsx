@@ -59,7 +59,7 @@ const Steps = () => {
         {steps.map((step, index) => (
           <div key={index}>
             <div className="flex gap-[30px] items-center">
-              <Image src={step.img} alt={`step${index + 1}`} width={127} height={127} />
+              <Image className='mob:w-[80px]' src={step.img} alt={`step${index + 1}`} width={127} height={127} />
               <div className="bg-[#FFFFFF]/10 rounded-[13px] w-full px-5 py-4">
                 <Text>Step {String(index + 1).padStart(2, '0')}</Text>
                 <Text className='text-[26px] text-white font-medium'>
@@ -71,7 +71,7 @@ const Steps = () => {
               </div>
             </div>
             {index !== steps.length - 1 && (
-              <div className="w-[2.6px] bg-accent h-[64px] ml-[54px]"></div>
+              <div className="w-[2.6px] bg-accent h-[64px] ml-[54px] mob:ml-[30px]"></div>
             )}
           </div>
         ))}

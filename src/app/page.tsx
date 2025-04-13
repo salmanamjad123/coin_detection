@@ -1,5 +1,6 @@
 import Benefits from '@/components/Home/Benefits'
 import ExampleofTool from '@/components/Home/ExampleofTool'
+import Faqs from '@/components/Home/Faqs'
 import Hero from '@/components/Home/Hero'
 import NewIdeas from '@/components/Home/NewIdeas'
 import Steps from '@/components/Home/Steps'
@@ -19,6 +20,7 @@ export default function Home() {
         <Steps/>
         <ExampleofTool />
         <WhatWeOffer/>
+        <Faqs/>
         <NewIdeas/>
       </DefaultLayout>
     </div>
