@@ -1,11 +1,15 @@
+import React from 'react'
 import Button from '@/components/ui/Button'
 import Text from '@/components/ui/Text'
-import React from 'react'
+
+import bg from "@/public/images/hero/ideabg.png"
+import Image from 'next/image'
 
 const NewIdeas = () => {
     return (
-        <div className='bg-[#040D18C7] min-h-[555px] mob:h-full flex items-center justify-center'>
-            <div className="w-full max-w-[894px] py-10">
+        <div className='bg-[#040D18C7] min-h-[555px] mob:h-full flex items-center justify-center relative'>
+           <Image className='absolute w-full h-full top-0 right-0 object-cover z-0' src={bg} alt="bg" />
+            <div className="w-full max-w-[894px] py-10 relative z-10">
                 <Text as='h1' className="text-[50px] text-center">Get Updated Or Support New Ideas!!</Text>
                 <Text className="text-center max-w-[892px] mx-auto mt-[21px]">Stay in the loop with everything you want to know ! Sign up with your email below for exclusive updates and early access.</Text>
 

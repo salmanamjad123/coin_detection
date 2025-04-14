@@ -11,7 +11,9 @@ import youtube from "@/public/icons/youtube.svg"
 const Footer = () => {
     return (
         <div className='py-8'>
-            <Text as='h1' className='text-[42.29px] font-normal text-center '>Snip&Trace</Text>
+            <h1 className="text-accent text-center font-normal text-[42.29px] font-prociono">
+                Snap&Trace
+            </h1>
             <hr className='bg-[#FFFFFF1A] h-[1px] w-full my-[30px]' />
 
             <Text className='text-center mx-auto max-w-[839px] font-medium'>

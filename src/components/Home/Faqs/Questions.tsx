@@ -75,8 +75,8 @@ const Questions = () => {
 
   return (
     <div className="overflow-hidden  text-white ">
-          <Text as="h1" className="text-[46.93px] text-center font-bold font-raleway leading-[22.4px] text-white  mb-[27px]">
-            Frequently asked questions
+          <Text as="h1" className="text-[46.93px] text-center font-bold font-raleway  text-white  mb-[27px]">
+            Frequently Asked Questions
           </Text>
           <Text  className="text-center text-[19.78px] mb-[77px]">
           Here is everything that you want to know about the poduct and working
