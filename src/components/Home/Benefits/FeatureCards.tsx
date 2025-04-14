@@ -32,16 +32,23 @@ const FeatureCards = () => {
   return (
     <div className="flex tab:flex-wrap gap-5 py-12 w-full max-w-[1131px] mx-auto">
       {/* Left Tall Card */}
-      <div className="bg-[#111113] max-w-[391px] rounded-2xl p-6 flex flex-col justify-between shadow-md row-span-2">
-        <div className="w-12  flex items-center justify-center rounded-full border border-[#A8E54321] mb-4 relative">
-          <span className="absolute inset-0 rounded-full border border-[#A8E54310]" />
-          <Image
-            src={features[0].icon}
-            alt={features[0].title}
-            width={50}
-            height={50}
-          />
-        </div>
+      <div className="bg-[#111113] max-w-[391px] tab:max-w-full relative rounded-2xl p-6 flex flex-col justify-between shadow-md row-span-2">
+      
+      <div className="rounded-full absolute top-0 left-0 border border-[#A8E54305] inline-block mb-4">
+            <div className="p-[12px] rounded-full border border-[#A8E5430F]">
+              <div className="p-[8px] rounded-full border border-[#A8E54321]">
+                <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#1a1a1a]">
+                  <Image
+                      src={features[0].icon}
+                      alt={features[0].title}
+                      width={50}
+                      height={50}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+      <div className="tab:h-[120px]"></div>
 
         <div>
           <Text as="h2">{features[0].title}</Text>
