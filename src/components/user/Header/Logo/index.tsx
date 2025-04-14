@@ -5,7 +5,7 @@ const Logo: React.FC = () => {
   return (
     <Link href="/">
       <h1 className="text-accent font-normal text-[28px] font-prociono">
-        Coin Detection
+      Snap&Trace
       </h1>
     </Link>
   )

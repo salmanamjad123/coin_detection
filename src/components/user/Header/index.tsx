@@ -8,6 +8,7 @@ import HeaderLink from './Navigation/HeaderLink'
 import MobileHeaderLink from './Navigation/MobileHeaderLink'
 import Button from '@/components/ui/Button'
 import Text from '@/components/ui/Text'
+import DropDown from './DropDown'
 
 const Header: React.FC = () => {
   const pathUrl = usePathname()
@@ -67,7 +68,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 z-40 w-full transition-all duration-300 ${
+      className={`fixed top-0 z-40 w-full transition-all duration-300  ${
         sticky ? 'shadow-lg bg-black bg-banner-image py-4' : 'shadow-none py-8'
       }`}
     >
@@ -89,8 +90,10 @@ const Header: React.FC = () => {
               <HeaderLink key={index} item={item} />
             ))}
           </nav>
-          <div className="flex items-center gap-4">
-            <Button className="tab:hidden  px-5">
+          <div className="flex items-center gap-1">
+
+            <DropDown/>
+            <Button className="tab:hidden  px-1">
               Start Now
             </Button>
 
