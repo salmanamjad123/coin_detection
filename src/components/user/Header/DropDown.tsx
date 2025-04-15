@@ -21,7 +21,7 @@ export default function DropDown() {
     return (
         <div className="relative z-[50] w-[198px] text-center">
             <Menu>
-                <MenuButton className="flex items-center gap-2 rounded-[30px] mx-auto text-[19.91px] font-raleway font-medium text-white focus:outline-none">
+                <MenuButton className="flex items-center mob:justify-start gap-2 rounded-[30px] mx-auto mob:mx-0 text-[19.91px] font-raleway font-medium text-white focus:outline-none">
                     <Image src={selected.flag} alt={selected.label} width={47} height={27} />
                     {selected.code}
                     <ChevronDownIcon className="size-4 fill-white" />

@@ -17,7 +17,7 @@ const Hero = () => {
       <div className="relative z-10 pb-20 mx-auto w-full max-w-[1110px] pt-48  text-center ">
         <Text
           as="h1"
-          className="bg-gradient-to-r from-[#ffffff] to-[#999999] text-transparent bg-clip-text"
+          className="bg-gradient-to-r from-[#ffffff] to-[#999999] text-transparent bg-clip-text mob:text-[28px] mob:leading-[41px]"
         >
           DXF Files Modifications Using AI
         </Text>

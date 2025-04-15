@@ -68,7 +68,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 z-40 w-full transition-all duration-300  ${
+      className={`fixed top-0 z-40 w-full transition-all duration-300 mob:px-5 ${
         sticky ? 'shadow-lg bg-black bg-banner-image py-4' : 'shadow-none py-8'
       }`}
     >
@@ -92,8 +92,10 @@ const Header: React.FC = () => {
           </nav>
           <div className="flex items-center gap-1">
 
+            <div className="mob:hidden">
             <DropDown/>
-            <Button className="tab:hidden  px-1">
+            </div>
+            <Button className="tab:hidden  px-3">
               Start Now
             </Button>
 
@@ -115,7 +117,7 @@ const Header: React.FC = () => {
 
         <div
           ref={mobileMenuRef}
-          className={`lg:hidden fixed top-0 right-0 h-full w-full bg-[#0C1B44] shadow-lg transform transition-transform duration-300 max-w-xs ${
+          className={` fixed top-0 right-0 h-full w-full bg-[#0C1B44] shadow-lg transform transition-transform duration-300 max-w-xs ${
             navbarOpen ? 'translate-x-0' : 'translate-x-full'
           } z-50`}
         >
@@ -134,6 +136,9 @@ const Header: React.FC = () => {
               <MobileHeaderLink key={index} item={item} />
             ))}
             <div className="mt-4 flex flex-col space-y-4 w-full">
+            <div className="">
+            <DropDown/>
+            </div>
               <Button>Start Now</Button>
             </div>
           </nav>
