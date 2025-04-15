@@ -5,7 +5,7 @@ import FeatureCards from './FeatureCards'
 
 const Benefits = () => {
   return (
-    <section className="relative overflow-hidden" id="benefits-section">
+    <section className="relative overflow-hidden" id="benefits">
       <div className="absolute inset-0 z-0 flex justify-end">
         <div
           className="w-[600px] h-[600px] rounded-full
