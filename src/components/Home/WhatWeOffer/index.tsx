@@ -13,7 +13,7 @@ const WhatWeOffer = () => {
                   from-[#A8E543]/30 via-[#AAFFAA]/15 to-transparent blur-2xl"
         ></div> */}
       </div>
-      <div className="z-10 mx-auto w-full max-w-[1131px] pt-20  px-4">
+      <div className="z-10 mx-auto w-full max-w-[1131px] pt-20 mob:pt-0  px-4">
         <div className="flex justify-between md:flex-row flex-col">
           <div className="max-w-3xl">
             <Text as="h1">What We Offer?</Text>

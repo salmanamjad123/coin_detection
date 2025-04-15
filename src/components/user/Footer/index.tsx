@@ -16,11 +16,11 @@ const Footer = () => {
             </h1>
             <hr className='bg-[#FFFFFF1A] h-[1px] w-full my-[30px]' />
 
-            <Text className='text-center mx-auto max-w-[839px] font-medium'>
+            <Text className='text-center mx-auto max-w-[839px] font-medium mob:px-5'>
                 Effortlessly create precise DXF files for manufacturing custom tool drawer inserts with AI-powered automation. Ability to modify DXF files
             </Text>
 
-            <div className="flex flex-wrap justify-center gap-[46px] mt-[38px]">
+            <div className="flex flex-wrap justify-center gap-[46px] mt-[38px] mob:px-5">
                 <Link href="/"><Text className='underline'>Home</Text></Link>
                 <Link href="/"><Text className='underline'>Benefits</Text></Link>
                 <Link href="/"><Text className='underline'>Working</Text></Link>
@@ -28,7 +28,7 @@ const Footer = () => {
                 <Link href="/"><Text className='underline'>FAQ’s</Text></Link>
             </div>
 
-            <div className="flex flex-wrap items-center gap-8 mt-[80px] justify-between max-w-[1240px] mx-auto">
+            <div className="flex flex-wrap mob:px-5 items-center gap-8 mt-[80px] justify-between max-w-[1240px] mx-auto">
                 <div className="flex gap-[9px]">
                     <Image src={linkdin} alt="linkdin" width={40} height={40} />
                     <Image src={insta} alt="linkdin" width={40} height={40} />

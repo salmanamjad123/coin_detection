@@ -9,7 +9,7 @@ const ToolWorks = () => {
     return (
         <div className='px-5 flex justify-center items-center relative'>
                 <Image className='absolute right-0 z-0' src={grad} alt="poster" width={480} height={580} />
-            <div className=" w-full max-w-[1131px] pt-20 pb-20 z-10">
+            <div className=" w-full max-w-[1131px] pt-20 pb-20 mob:pt-0 z-10">
                 <Text as="h1" className='text-center'>How Foam Layout Tool Works?</Text>
                 <Image className='mt-16' src={poster} alt="poster" width={1131} height={580} />
 
