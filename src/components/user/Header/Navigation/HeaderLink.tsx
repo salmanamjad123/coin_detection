@@ -2,9 +2,21 @@
 import { useState } from 'react'
 import { HeaderItem } from '../../../../types/menu'
 import NavLink from './NavLink'
+import useSmoothScroll from '@/hooks/useSmoothScroll'
 
-const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
+const HeaderLink: React.FC<{ item: HeaderItem;  }> = ({ item }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false)
+  const scrollToId = useSmoothScroll()
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.includes('#')) {
+      e.preventDefault()
+      const id = href.split('#')[1]
+      scrollToId(id)
+    }
+  }
+
+  const idFromHref = item.href.includes('#') ? item.href.split('#')[1] : ''
 
   return (
     <div
@@ -14,27 +26,10 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
     >
       <NavLink
         href={item.href}
-        className="header-link flex items-center gap-1"
-        activeClassName="text-accent"
+        className={`header-link flex items-center gap-1 `}
+        onClick={(e) => handleClick(e, item.href)}
       >
         {item.label}
-        {item.submenu && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1.5em"
-            height="1.5em"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.5"
-              d="m7 10l5 5l5-5"
-            />
-          </svg>
-        )}
       </NavLink>
 
       {submenuOpen && item.submenu && (
@@ -44,7 +39,7 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
               key={index}
               href={subItem.href}
               className="block px-4 py-2 text-white hover:bg-accent hover:text-dark transition-colors duration-200"
-              activeClassName="bg-accent text-dark"
+              onClick={(e) => handleClick(e, subItem.href)}
             >
               {subItem.label}
             </NavLink>

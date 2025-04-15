@@ -58,14 +58,14 @@ const Steps = () => {
       <div className="w-full max-w-[1131px] mx-auto">
         {steps.map((step, index) => (
           <div key={index}>
-            <div className="flex gap-[30px] items-center">
-              <Image className='mob:w-[80px]' src={step.img} alt={`step${index + 1}`} width={127} height={127} />
+            <div className="flex gap-[30px] mob:gap-[15px] items-center">
+              <Image className='mob:w-[70px]' src={step.img} alt={`step${index + 1}`} width={127} height={127} />
               <div className="bg-[#FFFFFF]/10 rounded-[13px] w-full px-5 py-4">
                 <Text>Step {String(index + 1).padStart(2, '0')}</Text>
                 <Text className='text-[26px] text-white font-medium'>
                   {step.title}
                   {step.note && (
-                    <span className='text-[#FFFFFF80] text-[24px] ml-2'>{step.note}</span>
+                    <span className='text-[#FFFFFF80] text-[24px] ml-2 mob:text-[16px] mob:leading-[22.2px] mob:mt-2'>{step.note}</span>
                   )}
                 </Text>
               </div>

@@ -74,7 +74,7 @@ const Questions = () => {
   };
 
   return (
-    <div className="overflow-hidden  text-white ">
+    <div id="faq-section" className="overflow-hidden  text-white ">
           <Text as="h1" className="text-[46.93px] text-center font-bold font-raleway  text-white  mb-[27px]">
             Frequently Asked Questions
           </Text>

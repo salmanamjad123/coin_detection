@@ -15,7 +15,7 @@ const NavLink: React.FC<NavLinkProps> = ({
   href,
   children,
   className = '',
-  activeClassName = 'text-accent',
+  activeClassName = 'text-white',
   exact = true,
   ...rest
 }) => {

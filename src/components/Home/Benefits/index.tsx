@@ -5,7 +5,7 @@ import FeatureCards from './FeatureCards'
 
 const Benefits = () => {
   return (
-    <section className="relative overflow-hidden" id="benefits-section">
+    <section className="relative overflow-hidden" id="benefits">
       <div className="absolute inset-0 z-0 flex justify-end">
         <div
           className="w-[600px] h-[600px] rounded-full
@@ -16,7 +16,7 @@ const Benefits = () => {
       <div className="z-10 mx-auto w-full max-w-[1131px] pt-20 pb-20 px-4">
         <div className="flex justify-between md:flex-row flex-col">
           <div className="max-w-3xl">
-            <Text as="h1">Why Choose Foam Layout Tool?</Text>
+            <Text as="h1" >Why Choose Foam Layout Tool?</Text>
             <Text className="mt-5">
               Designed for both hobbyists and professionals, our software
               eliminates tedious manual design work, delivers accurate files

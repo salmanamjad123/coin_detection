@@ -10,7 +10,7 @@ import tool3 from "@/public/images/hero/tool3.png"
 const ExampleofTool = () => {
     return (
         <div>
-            <div className='px-5 relative'>
+            <div id="sample-section" className='px-5 relative'>
                 <Text as="h1" className='text-center'>Check Examples Of Our Tool</Text>
                 <Image className='absolute top-28 left-0 z-0 rotate-[180deg]' src={grad} alt="poster" width={520} height={480} />
               
