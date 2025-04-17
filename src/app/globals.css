@@ -15,3 +15,7 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
+
+body {
+  @apply bg-[#14141A] min-h-screen;
+}
