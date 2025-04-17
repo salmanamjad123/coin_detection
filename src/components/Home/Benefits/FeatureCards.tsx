@@ -6,6 +6,7 @@ import fastIcon from '@/public/images/benefits/fast.svg'
 import analysisIcon from '@/public/images/benefits/analysis.svg'
 import Image from 'next/image'
 
+
 const features = [
   {
     title: 'AI Powered Precision',
