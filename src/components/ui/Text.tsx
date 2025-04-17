@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import { cn } from '@/utils'
 
-type ComponentAs = 'h1' | 'h2' | 'p'
+type ComponentAs = 'h1' | 'h2' | 'h3' |'p'
 
 interface Props {
   children?: React.ReactNode
@@ -9,7 +9,7 @@ interface Props {
   as?: ComponentAs
   onclick?: React.MouseEventHandler
   Style?: React.CSSProperties
-  dangerouslySetInnerHTML?: { __html: string } // Add this prop
+  dangerouslySetInnerHTML?: { __html: string }
 }
 
 const Text = forwardRef<HTMLHeadingElement | HTMLParagraphElement, Props>(
@@ -24,7 +24,6 @@ const Text = forwardRef<HTMLHeadingElement | HTMLParagraphElement, Props>(
     } = props
 
     if (dangerouslySetInnerHTML) {
-      // If dangerouslySetInnerHTML is passed, render using this
       return (
         <p
           ref={ref}
@@ -34,7 +33,7 @@ const Text = forwardRef<HTMLHeadingElement | HTMLParagraphElement, Props>(
           )}
           onClick={onclick}
           style={Style}
-          dangerouslySetInnerHTML={dangerouslySetInnerHTML} // Use this here
+          dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         />
       )
     }
@@ -67,6 +66,22 @@ const Text = forwardRef<HTMLHeadingElement | HTMLParagraphElement, Props>(
         >
           {children}
         </h2>
+      )
+    }
+
+    if (as === 'h3') {
+      return (
+        <h3
+          ref={ref}
+          className={cn(
+            'font-raleway text-[#FFFFFF] sm:text-[32.13px] text-[27px] font-semibold',
+            className,
+          )}
+          onClick={onclick}
+          style={Style}
+        >
+          {children}
+        </h3>
       )
     }
 
