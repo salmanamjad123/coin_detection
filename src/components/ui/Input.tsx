@@ -52,7 +52,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
           className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500"
           tabIndex={-1}
         >
-          {showPassword ? <LuEyeClosed className='text-[#A8E543]' size={20} /> : <IoMdEye className='text-[#A8E543]' size={20} />}
+          {showPassword ? <IoMdEye className='text-[#A8E543]' size={20} /> : <LuEyeClosed className='text-[#A8E543]' size={20} />}
         </button>
       )}
     </div>

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '@/components/ui/Input'
 import Label from '@/components/ui/Label'
 import Text from '@/components/ui/Text'
@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'react-toastify'
 
 const loginSchema = z.object({
     email: z.string().min(1, { message: 'Email is required' }).email({
@@ -27,33 +28,31 @@ const Login = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({
+    } = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
     })
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const onSubmit = async (data: LoginFormValues) => {
+        setIsSubmitting(true)
         try {
             const response = await axios.post('/api/auth/login', data)
-
             const result = response.data
-
-            console.log('Login successful:', result)
+            toast.success('Login successful')
             localStorage.setItem('token', result.token)
             localStorage.setItem('user', JSON.stringify(result.user))
             window.location.href = '/admin/dashboard'
         } catch (error: any) {
             if (error.response) {
-                console.error('Login failed:', error.response.data.message)
-                alert(error.response.data.message)
+                toast.error(error.response.data.message || 'Login failed')
             } else {
-                console.error('An error occurred:', error.message)
-                alert('Something went wrong. Please try again.')
+                toast.error('Something went wrong. Please try again.')
             }
+        } finally {
+            setIsSubmitting(false)
         }
     }
-
-
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center px-4">
@@ -66,10 +65,10 @@ const Login = () => {
                 className="w-full max-w-lg border border-[#2C2C2C] rounded-[20px] p-5 shadow-md"
             >
                 <Text as="h3" className="text-white text-left mb-2">
-                    Login To Coin Detection
+                    Login To Snap & Trace
                 </Text>
                 <Text className="text-gray-400 text-left text-[16px] leading-6 mb-6">
-                    Sign in with your email and password and continue to Coin Detection
+                    Sign in with your email and password and continue to Snap & Trace
                 </Text>
 
                 <div className="mb-4">
@@ -82,7 +81,7 @@ const Login = () => {
                         {...register('email')}
                         readOnly={true}
                     />
-                    {errors.email && errors.email.message === 'Email is required' && (
+                    {errors.email && (
                         <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
                     )}
                 </div>
@@ -94,10 +93,11 @@ const Login = () => {
                         type="password"
                         placeholder="Enter Password"
                         withIcon
+                        readOnly={true}
                         className="bg-[#FFFFFF1A] border-none text-white placeholder-[#FFFFFF80] rounded-[43.81px]"
                         {...register('password')}
                     />
-                    {errors.password && errors.password.message === 'Password is required' && (
+                    {errors.password && (
                         <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
                     )}
                 </div>
@@ -115,8 +115,9 @@ const Login = () => {
                         variant="primary"
                         className="bg-accent text-black w-full"
                         type="submit"
+                        disabled={isSubmitting}
                     >
-                        Login
+                        {isSubmitting ? 'Logging in...' : 'Login'}
                     </Button>
                 </div>
             </form>

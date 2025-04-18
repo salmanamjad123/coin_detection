@@ -4,7 +4,8 @@ import { compare } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 export async function POST(req: NextRequest) {
-  const { email, password } = await req.json()
+  const { email: rawEmail, password } = await req.json()
+  const email = rawEmail.trim().toLowerCase()
 
   if (!email || !password) {
     return NextResponse.json({ message: 'Email and password are required' }, { status: 400 })

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '@/components/ui/Input'
 import Label from '@/components/ui/Label'
 import Text from '@/components/ui/Text'
@@ -8,29 +8,60 @@ import Logo from '@/components/user/Header/Logo'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
-const loginSchema = z.object({
-    email: z.string().min(1, { message: 'Email is required' }).email({
-        message: 'Must be a valid email',
-    }),
-    password: z.string().refine((value) => value.trim().length > 0, {
-        message: 'Password is required',
-    }),
-})
+const resetSchema = z
+    .object({
+        newPassword: z.string().min(6, 'Password must be at least 6 characters'),
+        confirmPassword: z.string(),
+    })
+    .refine((data) => data.newPassword === data.confirmPassword, {
+        message: 'Passwords do not match',
+        path: ['confirmPassword'],
+    })
 
-type LoginFormValues = z.infer<typeof loginSchema>
+type ResetFormValues = z.infer<typeof resetSchema>
 
-const Login = () => {
+const ResetPassword = () => {
+    const router = useRouter()
+    const [email, setEmail] = useState<string | null>(null)
+
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({
-        resolver: zodResolver(loginSchema),
+    } = useForm<ResetFormValues>({
+        resolver: zodResolver(resetSchema),
     })
 
-    const onSubmit = (data: LoginFormValues) => {
-        console.log('Login Data:', data)
+    useEffect(() => {
+        const storedEmail = sessionStorage.getItem('user_email')
+        if (!storedEmail) {
+            toast.error('Session expired. Please request OTP again.')
+            router.push('/admin/forgot-password')
+        }
+        setEmail(storedEmail)
+    }, [router])
+
+    const onSubmit = async (data: ResetFormValues) => {
+        if (!email) return
+        try {
+            const response = await axios.post('/api/auth/reset-password', {
+                email,
+                newPassword: data.newPassword,
+            })
+            if (response.data.success) {
+                toast.success('Password reset successfully!')
+                sessionStorage.removeItem('user_email')
+                router.push('/admin')
+            } else {
+                toast.error(response.data.message || 'Something went wrong')
+            }
+        } catch (error) {
+            toast.error('Failed to reset password')
+        }
     }
 
     return (
@@ -47,45 +78,41 @@ const Login = () => {
                     Reset Password
                 </Text>
                 <Text className="text-gray-400 text-left text-[16px] leading-6 mb-6">
-                    Please enter you new password to continue to snap & trace
+                    Please enter your new password to continue to Snap & Trace
                 </Text>
 
                 <div className="mb-4">
-                    <Label htmlFor="password">New Password</Label>
+                    <Label htmlFor="newPassword">New Password</Label>
                     <Input
-                        id="password"
+                        id="newPassword"
                         type="password"
-                        placeholder="Enter Password"
+                        placeholder="Enter New Password"
                         withIcon
                         className="bg-[#FFFFFF1A] border-none text-white placeholder-gray-400 rounded-[43.81px]"
-                        {...register('password')}
+                        {...register('newPassword')}
                     />
-                    {errors.password && errors.password.message === 'Password is required' && (
-                        <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                    {errors.newPassword && (
+                        <p className="text-red-500 text-sm mt-1">{errors.newPassword.message}</p>
                     )}
                 </div>
 
                 <div className="mb-14">
-                    <Label htmlFor="password">Confirm New Password</Label>
+                    <Label htmlFor="confirmPassword">Confirm New Password</Label>
                     <Input
-                        id="password"
+                        id="confirmPassword"
                         type="password"
-                        placeholder="Enter Password"
+                        placeholder="Confirm New Password"
                         withIcon
                         className="bg-[#FFFFFF1A] border-none text-white placeholder-gray-400 rounded-[43.81px]"
-                        {...register('password')}
+                        {...register('confirmPassword')}
                     />
-                    {errors.password && errors.password.message === 'Password is required' && (
-                        <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                    {errors.confirmPassword && (
+                        <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
                     )}
                 </div>
 
                 <div className="flex gap-4">
-                    <Button
-                        variant="primary"
-                        className="bg-accent text-black w-full"
-                        type="submit"
-                    >
+                    <Button variant="primary" className="bg-accent text-black w-full" type="submit">
                         Continue
                     </Button>
                 </div>
@@ -94,4 +121,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default ResetPassword

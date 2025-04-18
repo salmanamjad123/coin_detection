@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Input from '@/components/ui/Input'
 import Label from '@/components/ui/Label'
 import Text from '@/components/ui/Text'
@@ -8,6 +8,9 @@ import Logo from '@/components/user/Header/Logo'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 const emailSchema = z.object({
     email: z.string().min(1, { message: 'Email is required' }).email({
@@ -21,14 +24,15 @@ type EmailFormValues = z.infer<typeof emailSchema>
 
 const Login = () => {
     const [showOtp, setShowOtp] = useState(false)
-    const [loading, setLoading] = useState(false)
-
+    const [otpLoading, setOtpLoading] = useState(false)
+    const [verifyLoading, setVerifyLoading] = useState(false)
+    const [timer, setTimer] = useState(0)
+    const router = useRouter()
     const inputRefs = useRef<(HTMLInputElement | null)[]>([])
     const {
         register,
         handleSubmit,
         getValues,
-        setValue,
         formState: { errors },
     } = useForm<EmailFormValues>({
         resolver: zodResolver(emailSchema),
@@ -42,32 +46,39 @@ const Login = () => {
         const newOtp = [...otpDigits]
         newOtp[index] = val
         setOtpDigits(newOtp)
-
         if (val && index < OTP_LENGTH - 1) {
             inputRefs.current[index + 1]?.focus()
         }
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
-        if (e.key === 'Backspace') {
-            if (!otpDigits[index] && index > 0) {
-                inputRefs.current[index - 1]?.focus()
-            }
+        if (e.key === 'Backspace' && !otpDigits[index] && index > 0) {
+            inputRefs.current[index - 1]?.focus()
         }
     }
 
-    const sendOTP = async () => {
-        const email = getValues('email')
-        if (!email) return
+    useEffect(() => {
+        if (timer > 0) {
+            const interval = setInterval(() => {
+                setTimer((prev) => prev - 1)
+            }, 1000)
+            return () => clearInterval(interval)
+        }
+    }, [timer])
 
+    const sendOTP = async (data: EmailFormValues) => {
+        const { email } = data
         try {
-            setLoading(true)
-            console.log('Sending OTP to:', email)
+            setOtpLoading(true)
+            const res = await axios.post('/api/auth/send-otp', { email })
+            toast.success('OTP sent successfully!')
             setShowOtp(true)
-        } catch (err) {
-            console.error('Failed to send OTP')
+            setTimer(60)
+        } catch (err: any) {
+            console.error('Failed to send OTP', err)
+            toast.error(err.response?.data?.message || 'Failed to send OTP')
         } finally {
-            setLoading(false)
+            setOtpLoading(false)
         }
     }
 
@@ -75,17 +86,27 @@ const Login = () => {
         const email = getValues('email')
         const otp = otpDigits.join('')
         if (otp.length !== OTP_LENGTH) {
-            alert('Enter complete OTP')
+            toast.error('Enter complete OTP')
             return
         }
 
         try {
-            setLoading(true)
-            console.log('Verifying:', { email, otp })
-        } catch (err) {
-            console.error('Failed to verify OTP')
+            setVerifyLoading(true)
+            const response = await axios.post('/api/auth/verify-otp', { email, otp })
+            console.log(response)
+    
+            if (response.data.success) {
+                toast.success('OTP verified successfully.')
+                sessionStorage.setItem('user_email', email)
+                router.push('/admin/reset-password')
+            } else {
+                toast.error(response.data.message || 'Invalid OTP. Please try again.')
+            }
+        } catch (err: any) {
+            const message = err?.response?.data?.message || 'Failed to verify OTP'
+            toast.error(message)
         } finally {
-            setLoading(false)
+            setVerifyLoading(false)
         }
     }
 
@@ -98,13 +119,11 @@ const Login = () => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    showOtp ? verifyOTP() : sendOTP()
+                    showOtp ? verifyOTP() : handleSubmit(sendOTP)()
                 }}
                 className="w-full max-w-lg border border-[#2C2C2C] rounded-[20px] p-5 shadow-md"
             >
-                <Text as="h3" className="text-white text-left mb-2">
-                    Forgot Password?
-                </Text>
+                <Text as="h3" className="text-white text-left mb-2">Forgot Password?</Text>
                 <Text className="text-gray-400 text-left text-[16px] leading-6 mb-6">
                     Enter your email address to reset your password
                 </Text>
@@ -125,12 +144,16 @@ const Login = () => {
                 </div>
 
                 <div className="text-left mb-12">
-                    <span
-                        className="text-accent text-sm hover:underline font-medium cursor-pointer"
-                        onClick={sendOTP}
-                    >
-                        {loading ? 'Sending OTP...' : 'Send OTP'}
-                    </span>
+                    {timer > 0 ? (
+                        <span className="text-gray-400 text-sm">Resend in {timer}s</span>
+                    ) : (
+                        <span
+                            className={`text-accent text-sm hover:underline font-medium cursor-pointer ${otpLoading ? 'pointer-events-none opacity-60' : ''}`}
+                            onClick={handleSubmit(sendOTP)}
+                        >
+                            {otpLoading ? 'Sending OTP...' : 'Send OTP'}
+                        </span>
+                    )}
                 </div>
 
                 <div className="flex justify-between gap-2 mb-12 max-w-xs mx-auto">
@@ -155,8 +178,11 @@ const Login = () => {
                         variant="primary"
                         className="bg-accent text-black w-full"
                         type="submit"
+                        disabled={!showOtp || verifyLoading}
                     >
-                        {loading ? 'Processing...' : 'Verify'}
+                        {verifyLoading
+                            ? 'Verifying...'
+                            : 'Verify'}
                     </Button>
                 </div>
             </form>
@@ -165,4 +191,3 @@ const Login = () => {
 }
 
 export default Login
-
