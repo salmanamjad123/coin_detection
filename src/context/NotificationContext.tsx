@@ -5,7 +5,6 @@ interface NotificationContextType {
   isActive: boolean
   toggleNotifications: () => void
 }
-
 const NotificationContext = createContext<NotificationContextType | undefined>(
   undefined,
 )
